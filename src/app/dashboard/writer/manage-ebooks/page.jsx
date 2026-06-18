@@ -143,6 +143,9 @@ const page = async () => {
                                         <th className="text-left p-5 text-sm font-semibold text-zinc-600">
                                             Price
                                         </th>
+                                        <th className="text-left p-5 text-sm font-semibold text-zinc-600">
+                                            Status
+                                        </th>
 
                                         <th className="text-left p-5 text-sm font-semibold text-zinc-600">
                                             Created
@@ -211,6 +214,14 @@ const page = async () => {
                                             <td className="p-5 font-semibold text-emerald-600">
                                                 ${book.price}
                                             </td>
+
+                                            {/* Status */}
+                                              <td className="p-5 font-semibold text-emerald-600">
+                                                {book.status}
+                                            </td>
+
+                                            
+                            
 
                                             {/* Date */}
 

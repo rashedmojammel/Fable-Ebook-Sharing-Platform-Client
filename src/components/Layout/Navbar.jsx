@@ -20,7 +20,7 @@ const Navbar = () => {
 
   const navLinks = [
     { href: "/", label: "Home" },
-    { href: "/browse-ebooks", label: "Browse Ebooks" },
+    { href: "/books", label: "Browse Ebooks" },
     { href: "/dashboard/writer", label: "Dashboard" },
   ];
 
