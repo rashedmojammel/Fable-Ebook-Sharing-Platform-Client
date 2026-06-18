@@ -26,9 +26,12 @@ import {
 
 import { createbook } from "@/lib/actions/books";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
 
 export default function AddEbookForm() {
     const router = useRouter();
+    const {data:session} = useSession();
+    console.log(session);
 
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
