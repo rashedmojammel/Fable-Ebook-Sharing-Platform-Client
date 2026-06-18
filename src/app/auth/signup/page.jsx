@@ -1,342 +1,152 @@
 "use client";
-
 import { useState } from "react";
-import {
-  Button,
-  Input,
-  Link,
-} from "@heroui/react";
-import {
-  Eye,
-  EyeSlash,
-  BookOpen,
-  Pencil,
-} from "@gravity-ui/icons";
-import { FcGoogle } from "react-icons/fc";
+import { Card, Button, Link, TextField, Label, InputGroup, Input, FieldError } from "@heroui/react";
+import { Eye, EyeSlash, Person, At, ShieldKeyhole } from "@gravity-ui/icons";
+import { signUp } from "@/lib/auth-client";
 
 export default function SignupPage() {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isConfirmVisible, setIsConfirmVisible] = useState(false);
+    // Form fields
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] =
-    useState("");
-  const [role, setRole] = useState("reader");
+    // UI States
+    const [isVisible, setIsVisible] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
 
-  const [loading, setLoading] = useState(false);
+    const toggleVisibility = () => setIsVisible(!isVisible);
 
-  const toggleVisibility = () =>
-    setIsVisible(!isVisible);
+    const handleSignup = async (e) => {
+        e.preventDefault();
 
-  const toggleConfirmVisibility = () =>
-    setIsConfirmVisible(!isConfirmVisible);
+        setError("");
+        setSuccess("");
+        setIsLoading(true);
 
-  const handleSignup = async (e) => {
-    e.preventDefault();
+        try {
+            const { data, error: authError } = await signUp.email({
+                email,
+                password,
+                name,
+                callbackURL: "/",
+            });
 
-    // your signup implementation
-  };
+            if (authError) {
+                setError(authError.message || "Something went wrong during signup.");
+            } else {
+                setSuccess("Account created successfully! Welcome.");
+                setName("");
+                setEmail("");
+                setPassword("");
+            }
+        } catch (err) {
+            setError("An unexpected network error occurred.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-  return (
-    <div className="min-h-screen grid lg:grid-cols-2 bg-[#F6F3ED]">
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-zinc-950 px-4">
+            <Card className="w-full max-w-md p-6 shadow-sm border border-zinc-200 dark:border-zinc-800">
 
-      {/* LEFT PANEL */}
-      <div className="hidden lg:flex flex-col justify-between p-10 bg-gradient-to-br from-[#121A4A] via-[#161B4F] to-[#0E1238] text-white">
+                {/* Header Container */}
+                <div className="flex flex-col items-center justify-center gap-1 pb-6 border-b border-zinc-100 dark:border-zinc-800 mb-6 text-center">
+                    <h1 className="text-2xl font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">Create an account</h1>
+                    <p className="text-sm text-zinc-600 dark:text-zinc-400">Fill in the fields below to get started</p>
+                </div>
 
-        {/* Logo */}
-        <div className="flex items-center gap-3">
-          <div className="w-9 h-9 rounded-full bg-amber-500 flex items-center justify-center">
-            📖
-          </div>
+                {/* Form Body */}
+                <form onSubmit={handleSignup} className="flex flex-col gap-5">
 
-          <h2 className="font-serif font-bold text-3xl">
-            Fable
-          </h2>
-        </div>
+                    {/* Name Field */}
+                    <TextField isRequired name="name" className="flex flex-col gap-1.5">
+                        <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Name</Label>
+                        <InputGroup className="flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 bg-zinc-50 dark:bg-zinc-900 focus-within:border-primary transition-colors">
+                            <Person className="text-zinc-400 pointer-events-none" size={16} />
+                            <Input
+                                type="text"
+                                placeholder="Enter your full name"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                className="w-full bg-transparent py-2 text-sm outline-none border-none text-zinc-900 dark:text-zinc-100"
+                            />
+                        </InputGroup>
+                    </TextField>
 
-        {/* Content */}
-        <div className="max-w-md">
-          <h1 className="text-5xl font-serif font-bold leading-tight">
-            Join thousands of readers & writers
-          </h1>
+                    {/* Email Field */}
+                    <TextField isRequired name="email" type="email" className="flex flex-col gap-1.5">
+                        <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Email Address</Label>
+                        <InputGroup className="flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 bg-zinc-50 dark:bg-zinc-900 focus-within:border-primary transition-colors">
+                            <At className="text-zinc-400 pointer-events-none" size={16} />
+                            <Input
+                                placeholder="you@example.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className="w-full bg-transparent py-2 text-sm outline-none border-none text-zinc-900 dark:text-zinc-100"
+                            />
+                        </InputGroup>
+                    </TextField>
 
-          <div className="mt-10 space-y-8">
+                    {/* Password Field */}
+                    <TextField isRequired name="password" className="flex flex-col gap-1.5">
+                        <Label className="text-sm font-medium text-zinc-700 dark:text-zinc-300">Password</Label>
+                        <InputGroup className="flex items-center gap-2 border border-zinc-200 dark:border-zinc-800 rounded-xl px-3 bg-zinc-50 dark:bg-zinc-900 focus-within:border-primary transition-colors">
+                            <ShieldKeyhole className="text-zinc-400 pointer-events-none" size={16} />
+                            <Input
+                                type={isVisible ? "text" : "password"}
+                                placeholder="Choose a password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className="w-full bg-transparent py-2 text-sm outline-none border-none text-zinc-900 dark:text-zinc-100"
+                            />
+                            <button
+                                className="focus:outline-none text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200 transition"
+                                type="button"
+                                onClick={toggleVisibility}
+                                aria-label="toggle password visibility"
+                            >
+                                {isVisible ? <EyeSlash size={18} /> : <Eye size={18} />}
+                            </button>
+                        </InputGroup>
+                    </TextField>
 
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                📚
-              </div>
-
-              <div>
-                <h4 className="font-semibold">
-                  Discover great reads
-                </h4>
-
-                <p className="text-sm text-white/60 mt-1">
-                  Browse thousands of original ebooks
-                  across every genre.
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                ✍️
-              </div>
-
-              <div>
-                <h4 className="font-semibold">
-                  Publish your work
-                </h4>
-
-                <p className="text-sm text-white/60 mt-1">
-                  Share your writing with a global
-                  audience in minutes.
-                </p>
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-        <p className="text-sm text-white/40">
-          © 2026 Fable. All rights reserved.
-        </p>
-      </div>
-
-      {/* RIGHT PANEL */}
-      <div className="flex items-center justify-center px-6 py-10">
-
-        <div className="w-full max-w-md">
-
-          <div className="mb-8">
-            <h1 className="text-5xl font-serif font-bold text-[#151B4B]">
-              Create your account
-            </h1>
-
-            <p className="text-gray-500 mt-2">
-              Start reading and writing on Fable today
-            </p>
-          </div>
-
-          <form
-            onSubmit={handleSignup}
-            className="space-y-5"
-          >
-
-            {/* Name */}
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Full Name
-              </label>
-
-              <Input
-                placeholder="Jane Doe"
-                value={name}
-                onChange={(e) =>
-                  setName(e.target.value)
-                }
-                radius="lg"
-                classNames={{
-                  inputWrapper:
-                    "bg-[#ECE8E0] border border-[#DDD6CA]",
-                }}
-              />
-            </div>
-
-            {/* Email */}
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Email
-              </label>
-
-              <Input
-                type="email"
-                placeholder="you@example.com"
-                value={email}
-                onChange={(e) =>
-                  setEmail(e.target.value)
-                }
-                radius="lg"
-                classNames={{
-                  inputWrapper:
-                    "bg-[#ECE8E0] border border-[#DDD6CA]",
-                }}
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Password
-              </label>
-
-              <Input
-                type={isVisible ? "text" : "password"}
-                placeholder="Min. 6 characters"
-                value={password}
-                onChange={(e) =>
-                  setPassword(e.target.value)
-                }
-                radius="lg"
-                endContent={
-                  <button
-                    type="button"
-                    onClick={toggleVisibility}
-                  >
-                    {isVisible ? (
-                      <EyeSlash size={16} />
-                    ) : (
-                      <Eye size={16} />
+                    {/* Dynamic Status Badges */}
+                    {error && (
+                        <div className="p-3.5 text-xs font-medium rounded-xl bg-red-100/60 dark:bg-red-950/50 text-red-700 dark:text-red-400 border border-red-200 dark:border-red-900">
+                            <span className="font-semibold">Error:</span> {error}
+                        </div>
                     )}
-                  </button>
-                }
-                classNames={{
-                  inputWrapper:
-                    "bg-[#ECE8E0] border border-[#DDD6CA]",
-                }}
-              />
-            </div>
 
-            {/* Confirm Password */}
-            <div>
-              <label className="text-sm font-medium mb-2 block">
-                Confirm Password
-              </label>
-
-              <Input
-                type={
-                  isConfirmVisible
-                    ? "text"
-                    : "password"
-                }
-                placeholder="Repeat password"
-                value={confirmPassword}
-                onChange={(e) =>
-                  setConfirmPassword(
-                    e.target.value
-                  )
-                }
-                radius="lg"
-                endContent={
-                  <button
-                    type="button"
-                    onClick={
-                      toggleConfirmVisibility
-                    }
-                  >
-                    {isConfirmVisible ? (
-                      <EyeSlash size={16} />
-                    ) : (
-                      <Eye size={16} />
+                    {success && (
+                        <div className="p-3.5 text-xs font-medium rounded-xl bg-emerald-100/60 dark:bg-emerald-950/50 text-emerald-800 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-900">
+                            <span className="font-semibold">Success:</span> {success}
+                        </div>
                     )}
-                  </button>
-                }
-                classNames={{
-                  inputWrapper:
-                    "bg-[#ECE8E0] border border-[#DDD6CA]",
-                }}
-              />
-            </div>
 
-            {/* ROLE */}
-            <div>
-              <label className="text-sm font-medium block mb-3">
-                I want to join as
-              </label>
+                    {/* Action Button */}
+                    <Button
+                        type="submit"
+                        color="primary"
+                        className="w-full font-semibold rounded-xl text-sm h-12"
+                        isLoading={isLoading}
+                        isDisabled={isLoading}
+                    >
+                        Sign Up
+                    </Button>
 
-              <div className="grid grid-cols-2 gap-3">
+                    {/* Navigation Option */}
+                    <div className="text-center pt-4 border-t border-zinc-100 dark:border-zinc-800 mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                        Already have an account?{" "}
+                        <Link href="/auth/signin" className="font-medium cursor-pointer text-sm text-blue-600 dark:text-blue-400">
+                            Sign in instead
+                        </Link>
+                    </div>
 
-                <button
-                  type="button"
-                  onClick={() =>
-                    setRole("reader")
-                  }
-                  className={`p-4 rounded-2xl border text-left transition ${
-                    role === "reader"
-                      ? "border-[#151B4B] bg-white"
-                      : "border-gray-200"
-                  }`}
-                >
-                  <BookOpen size={18} />
-
-                  <h4 className="mt-3 font-semibold">
-                    Reader
-                  </h4>
-
-                  <p className="text-xs text-gray-500 mt-1">
-                    Discover & purchase ebooks
-                  </p>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() =>
-                    setRole("writer")
-                  }
-                  className={`p-4 rounded-2xl border text-left transition ${
-                    role === "writer"
-                      ? "border-[#151B4B] bg-white"
-                      : "border-gray-200"
-                  }`}
-                >
-                  <Pencil size={18} />
-
-                  <h4 className="mt-3 font-semibold">
-                    Writer
-                  </h4>
-
-                  <p className="text-xs text-gray-500 mt-1">
-                    Publish & sell your work
-                  </p>
-                </button>
-
-              </div>
-            </div>
-
-            {/* CREATE ACCOUNT */}
-            <Button
-              type="submit"
-              isLoading={loading}
-              className="w-full h-12 bg-[#151B4B] text-white font-semibold rounded-xl"
-            >
-              Create Account
-            </Button>
-
-            {/* Divider */}
-            <div className="flex items-center gap-4">
-              <div className="h-px bg-gray-300 flex-1" />
-              <span className="text-xs text-gray-400">
-                or
-              </span>
-              <div className="h-px bg-gray-300 flex-1" />
-            </div>
-
-            {/* Google */}
-            <button
-              type="button"
-              className="w-full h-12 rounded-xl border bg-white flex items-center justify-center gap-3 hover:bg-gray-50 transition"
-            >
-              <FcGoogle size={20} />
-              Continue with Google
-            </button>
-
-            {/* Sign In */}
-            <p className="text-center text-sm text-gray-500">
-              Already have an account?{" "}
-              <Link
-                href="/auth/signin"
-                className="text-amber-600 font-semibold"
-              >
-                Sign in
-              </Link>
-            </p>
-
-          </form>
+                </form>
+            </Card>
         </div>
-      </div>
-    </div>
-  );
+    );
 }
