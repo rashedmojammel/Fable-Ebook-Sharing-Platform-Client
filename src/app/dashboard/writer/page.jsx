@@ -14,6 +14,7 @@ const WriterDashboard = () => {
     return (
         <div>
             <h2>Wellcome back {user?.name || 'Writer'}</h2>
+            hello writer
         </div>
     );
 };
