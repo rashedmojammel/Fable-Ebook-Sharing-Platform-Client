@@ -1,30 +1,37 @@
 
 
-import {Bars, Bell, Envelope, Gear, House, Magnifier, Person} from "@gravity-ui/icons";
+import {Bars, Bell, Envelope, Gear, House, LayoutSideContentLeft, Magnifier, Person} from "@gravity-ui/icons";
 import {Button, Drawer} from "@heroui/react";
+import {
+  BookOpen,
+  SquarePlus,
+  Bookmark,
+  ChartColumn,
+} from "@gravity-ui/icons";
+import Link from "next/link";
 
 export function DashboardSidebar() {
-  const navItems = [
-    {icon: House, label: "Home"},
-    {icon: Magnifier, label: "Search"},
-    {icon: Bell, label: "Notifications"},
-    {icon: Envelope, label: "Messages"},
-    {icon: Person, label: "Profile"},
-    {icon: Gear, label: "Settings"},
-  ];
+ const navItems = [
+  { icon: BookOpen, href: "/dashboard/writer/manage-ebooks", label: "Manage Ebooks" },
+  { icon: SquarePlus, href: "/dashboard/writer/books/new", label: "Add Ebook" },
+  { icon: Bookmark, href: "/dashboard/writer/bookmarks", label: "Bookmarks" },
+  { icon: ChartColumn, href: "/dashboard/writer/sales-history", label: "Sales History" },
+];
   const navContent = 
-  <nav className="flex flex-col gap-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.label}
-                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
-                    type="button"
-                  >
-                    <item.icon className="size-5 text-muted" />
-                    {item.label}
-                  </button>
-                ))}
-              </nav>
+// import Link from "next/link";
+
+<nav className="flex flex-col gap-1">
+  {navItems.map((item) => (
+    <Link
+      key={item.label}
+      href={item.href}
+      className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-foreground transition-colors hover:bg-default"
+    >
+      <item.icon className="size-5 text-muted" />
+      {item.label}
+    </Link>
+  ))}
+</nav>
 
   return (
    <>
@@ -33,7 +40,7 @@ export function DashboardSidebar() {
             </aside>
             <Drawer>
                 <Button className="lg:hidden" variant="secondary">
-                    {/* <LayoutSideContentLeft /> */}
+                    <LayoutSideContentLeft />
                     Sidebar
                 </Button>
                 <Drawer.Backdrop>
