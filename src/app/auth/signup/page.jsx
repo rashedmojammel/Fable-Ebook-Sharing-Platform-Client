@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { Card, Button, Link, TextField, Label, InputGroup, Input, FieldError } from "@heroui/react";
+import { Card, Button, Link, TextField, Label, InputGroup, Input, FieldError , Description,  Radio, RadioGroup} from "@heroui/react";
 import { Eye, EyeSlash, Person, At, ShieldKeyhole } from "@gravity-ui/icons";
 import { signUp } from "@/lib/auth-client";
 
@@ -9,6 +9,8 @@ export default function SignupPage() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [role, setRole] = useState("reader"); // Default role selection
+
 
     // UI States
     const [isVisible, setIsVisible] = useState(false);
@@ -26,12 +28,15 @@ export default function SignupPage() {
         setIsLoading(true);
 
         try {
+        
             const { data, error: authError } = await signUp.email({
                 email,
                 password,
                 name,
+                role,
                 callbackURL: "/",
             });
+            console.log("Signup response:", data, authError);
 
             if (authError) {
                 setError(authError.message || "Something went wrong during signup.");
@@ -112,6 +117,29 @@ export default function SignupPage() {
                             </button>
                         </InputGroup>
                     </TextField>
+                    {/*ROle selection*/}
+                    <div className="flex flex-col gap-4">
+      <Label>Sign Up As</Label>
+      <RadioGroup defaultValue="Reader" name="role" 
+      onChange={(value) => setRole(value)} orientation="horizontal">
+        <Radio value="reader">
+          <Radio.Content>
+            <Radio.Control>
+              <Radio.Indicator />
+            </Radio.Control>
+            Reader
+          </Radio.Content>
+        </Radio>
+        <Radio value="writer">
+          <Radio.Content>
+            <Radio.Control>
+              <Radio.Indicator />
+            </Radio.Control>
+            Writer
+          </Radio.Content>
+        </Radio>
+        </RadioGroup>
+    </div>
 
                     {/* Dynamic Status Badges */}
                     {error && (

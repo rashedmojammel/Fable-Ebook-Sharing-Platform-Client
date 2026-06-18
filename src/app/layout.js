@@ -2,10 +2,10 @@ import dns from 'node:dns'
 dns.setServers(['8.8.8.8','8.8.4.4'])
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from '@/components/Layout/Navbar';
+import Footer from '@/components/Layout/Footer';
 // import { ToastContainer } from "react-toastify";
-import Navbar from "./components/Layout/Navbar";
-import Footer from "./components/Layout/Footer";
-// import HeroBanner from "./components/ui/HeroBanner";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,12 +30,13 @@ export default function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
+        {/* <Navbar /> */} 
         <Navbar />
       
         {/* <Banner /> */}
         {children}
 
-        <Footer />
+        <Footer/>
           
         {/* <ToastContainer /> */}
       </body>

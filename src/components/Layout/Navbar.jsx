@@ -1,8 +1,11 @@
 "use client";
 
+
+
 import React, { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "@/lib/auth-client";
+
 
 const Navbar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -18,7 +21,7 @@ const Navbar = () => {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/browse-ebooks", label: "Browse Ebooks" },
-    { href: "/dashboard", label: "Dashboard" },
+    { href: "/dashboard/writer", label: "Dashboard" },
   ];
 
   const handleSignOut = async () => {
@@ -136,9 +139,11 @@ const Navbar = () => {
                       {user.name}
                     </p>
 
-                    <p className="text-xs text-gray-400">
-                      Reader
-                    </p>
+                    {user.role && (
+                      <p className="text-xs text-gray-400">
+                        {user.role}
+                      </p>
+                    )}
                   </div>
                 </button>
 

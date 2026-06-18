@@ -1,8 +1,8 @@
+import EbookGenres from "@/components/Sections/EbookGenresSection";
+import FeaturedEbooks from "@/components/Sections/FeaturedEbook";
+import HeroBanner from "@/components/Sections/HeroBanner";
+import TopWriters from "@/components/Sections/TopWriterSection";
 import Image from "next/image";
-import HeroBanner from "./components/Sections/HeroBanner";
-import FeaturedEbooks from "./components/Sections/FeaturedEbook";
-import TopWriters from "./components/Sections/TopWriterSection";
-import EbookGenres from "./components/Sections/EbookGenresSection";
 
 export default function Home() {
   return (
