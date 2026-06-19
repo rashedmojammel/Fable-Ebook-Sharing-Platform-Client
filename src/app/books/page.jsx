@@ -4,6 +4,7 @@ import BooksGrid from "./BooksGrid";
 
 export default async function BooksPage() {
   const books = await getBooks();
+  console.log("Books:", books); // Log the fetched books to the console
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8">

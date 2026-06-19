@@ -12,11 +12,21 @@ import {
 } from "@gravity-ui/icons";
 
 import { getBooks } from "@/lib/api/job";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth";
+// import { authClient } from "@/lib/auth-client";
+// import { getSession } from "better-auth/api";
 
 const page = async () => {
-    const genre = "Educational";
+   const session = await auth.api.getSession({
+    headers : await headers()
+   });
+   console.log("Session:", session); // Log the session object to the console
+   
+    const userEmail = session?.user?.email ;
+    console.log("User Email:", userEmail); // Log the user's email to the console
 
-    const books = await getBooks(genre);
+    const books = await getBooks(userEmail);
 
     return (
         <div className="min-h-screen bg-zinc-50 p-6">

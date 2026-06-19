@@ -10,12 +10,25 @@ import {
 } from "@gravity-ui/icons";
 
 import { Button, Chip } from "@heroui/react";
-import { getBookById } from "@/lib/api/job";
+import { getBookById, getBooks } from "@/lib/api/job";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const Page = async ({ params }) => {
   const { id } = await params;
+  // const session = await auth.api.getSession({
+  //     headers : await headers()
+  //    });
+  //  console.log("Session:", session); // Log the session object to the console
+  //  const userName = session?.user?.name || "Unknown User";
+  //  console.log("User Name:", userName); // Log the user's name to the console
+
 
   const book = await getBookById(id);
+  console.log("Book Details:", book); // Log the fetched book details to the console
+
+  const books2 = await getBooks();
+    
 
   if (!book) {
     return (
@@ -64,6 +77,14 @@ const Page = async ({ params }) => {
             </div>
 
             <div className="mt-6 space-y-3">
+
+               <form action="/api/checkout_sessions" method="POST">
+      <section>
+        <button type="submit" role="link">
+          Checkout
+        </button>
+      </section>
+    </form>
 
               {purchased ? (
                 <Button
@@ -139,7 +160,7 @@ const Page = async ({ params }) => {
               href={`/writers/${book.writerId || ""}`}
               className="text-primary font-medium hover:underline"
             >
-              by {book.writerName || "Unknown Writer"}
+              by {book.authorName || "Unknown Writer"}
             </Link>
           </div>
 
@@ -170,7 +191,7 @@ const Page = async ({ params }) => {
               <div className="flex items-center gap-2">
                 <Person width={18} />
                 <span>
-                  {book.writerName || "Unknown"}
+                  {book.authorName || "Unknown"}
                 </span>
               </div>
             </div>
