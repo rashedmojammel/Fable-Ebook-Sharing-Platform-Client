@@ -16,9 +16,9 @@ import {
 import Link from "next/link";
 import { getUserSession } from "@/lib/core/session";
 
-export function DashboardSidebar() {
+export async function DashboardSidebar() {
 
-  const user = getUserSession();
+  const user = await getUserSession();
 
   const readerNavItems = [
   {
@@ -56,6 +56,7 @@ const navLinksMap =
   reader: readerNavItems,
   writer: writerNavItems,
 }
+console.log("User Role:", user);
 const navItems = navLinksMap[user?.role || 'reader'] ;
 
   const navContent = 
