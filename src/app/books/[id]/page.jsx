@@ -14,6 +14,7 @@ import { getBookById } from "@/lib/api/job";
 import { checkPurchase } from "@/lib/api/purchases";
 import { getUserSession } from "@/lib/core/session";
 import BuyButton from "@/components/Button/BuyButton";
+import BookmarkButton from "@/components/Button/BookmarkButton";
 
 const Page = async ({ params }) => {
   const { id } = await params;
@@ -94,14 +95,7 @@ const Page = async ({ params }) => {
                 <BuyButton bookId={book._id} price={book.price} />
               )}
 
-              <Button
-                fullWidth
-                variant="bordered"
-                size="lg"
-                startContent={<Bookmark />}
-              >
-                Bookmark
-              </Button>
+              <BookmarkButton book={book} />
 
               {isOwner && (
                 <p className="text-center text-danger text-sm">
