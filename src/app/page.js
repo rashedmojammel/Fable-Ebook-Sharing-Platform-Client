@@ -1,3 +1,4 @@
+import Footer from "@/components/Layout/Footer";
 import EbookGenres from "@/components/Sections/EbookGenresSection";
 import FeaturedEbooks from "@/components/Sections/FeaturedEbook";
 import HeroBanner from "@/components/Sections/HeroBanner";
@@ -13,6 +14,7 @@ export default function Home() {
       <FeaturedEbooks/>
       <TopWriters></TopWriters>
       <EbookGenres></EbookGenres>
+      <Footer/>
     
     </>
   );

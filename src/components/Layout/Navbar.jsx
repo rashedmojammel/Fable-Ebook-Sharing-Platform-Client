@@ -18,11 +18,24 @@ const Navbar = () => {
   const user = session?.user || null;
   const isLoggedIn = !!user;
 
+  const dashboardLinks = {
+    admin: "/dashboard/admin",
+    writer: "/dashboard/writer",
+    reader: "/dashboard/reader",
+  }
+
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/books", label: "Browse Ebooks" },
-    { href: "/dashboard/writer", label: "Dashboard" },
   ];
+
+  if(user?.email){
+    navLinks.push({
+       label: "Dashboard" ,
+       href: dashboardLinks[user?.role || 'reader']
+      
+      });
+  }
 
   const handleSignOut = async () => {
     await signOut({

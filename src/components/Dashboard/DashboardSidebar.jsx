@@ -6,17 +6,58 @@ import {
   BookOpen,
   SquarePlus,
   Bookmark,
+  ClockArrowRotateLeft,
+  ShoppingCart,
+
   ChartColumn,
 } from "@gravity-ui/icons";
+
+
 import Link from "next/link";
+import { getUserSession } from "@/lib/core/session";
 
 export function DashboardSidebar() {
- const navItems = [
+
+  const user = getUserSession();
+
+  const readerNavItems = [
+  {
+    icon: ShoppingCart,
+    href: "/dashboard/reader/purchased-ebooks",
+    label: "Purchased Ebooks",
+  },
+  {
+    icon: ClockArrowRotateLeft,
+    href: "/dashboard/reader/purchase-history",
+    label: "Purchase History",
+  },
+  {
+    icon: Bookmark,
+    href: "/dashboard/reader/bookmarks",
+    label: "Bookmarks",
+  },
+  {
+    icon: Person,
+    href: "/dashboard/reader/profile",
+    label: "Profile",
+  },
+];
+
+
+ const writerNavItems = [
   { icon: BookOpen, href: "/dashboard/writer/manage-ebooks", label: "Manage Ebooks" },
   { icon: SquarePlus, href: "/dashboard/writer/books/new", label: "Add Ebook" },
   { icon: Bookmark, href: "/dashboard/writer/bookmarks", label: "Bookmarks" },
   { icon: ChartColumn, href: "/dashboard/writer/sales-history", label: "Sales History" },
 ];
+
+const navLinksMap =
+{
+  reader: readerNavItems,
+  writer: writerNavItems,
+}
+const navItems = navLinksMap[user?.role || 'reader'] ;
+
   const navContent = 
 // import Link from "next/link";
 
