@@ -10,27 +10,18 @@ import {
 } from "@gravity-ui/icons";
 
 import { Button, Chip } from "@heroui/react";
-import { getBookById, getBooks } from "@/lib/api/job";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getBookById } from "@/lib/api/job";
+import { checkPurchase } from "@/lib/api/purchases";
+import { getUserSession } from "@/lib/core/session";
+import BuyButton from "@/components/Button/BuyButton";
 
 const Page = async ({ params }) => {
   const { id } = await params;
-  // const session = await auth.api.getSession({
-  //     headers : await headers()
-  //    });
-  //  console.log("Session:", session); // Log the session object to the console
-  //  const userName = session?.user?.name || "Unknown User";
-  //  console.log("User Name:", userName); // Log the user's name to the console
-
 
   const book = await getBookById(id);
-  console.log("Book Details:", book); // Log the fetched book details to the console
+  const user = await getUserSession();
 
-  const books2 = await getBooks();
-    
-
-  if (!book) {
+  if (!book || book.error) {
     return (
       <div className="min-h-[70vh] flex items-center justify-center px-4">
         <div className="text-center">
@@ -52,9 +43,13 @@ const Page = async ({ params }) => {
     );
   }
 
-  // Replace these with actual auth logic later
-  const isOwner = false;
-  const purchased = false;
+  const isOwner = !!user?.email && user.email === book.authorEmail;
+
+  let purchased = false;
+  if (user?.email && !isOwner) {
+    const result = await checkPurchase(book._id, user.email);
+    purchased = result.purchased;
+  }
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-10">
@@ -78,31 +73,25 @@ const Page = async ({ params }) => {
 
             <div className="mt-6 space-y-3">
 
-               <form action="/api/checkout_sessions" method="POST">
-      <section>
-        <button type="submit" role="link">
-          Checkout
-        </button>
-      </section>
-    </form>
-
               {purchased ? (
                 <Button
                   fullWidth
                   color="success"
                   size="lg"
+                  isDisabled
                 >
-                  Already Purchased
+                  ✓ Already Purchased
                 </Button>
-              ) : (
+              ) : isOwner ? (
                 <Button
                   fullWidth
-                  color="primary"
                   size="lg"
-                  isDisabled={isOwner}
+                  isDisabled
                 >
-                  Buy Now — ${book.price}
+                  This is your ebook
                 </Button>
+              ) : (
+                <BuyButton bookId={book._id} price={book.price} />
               )}
 
               <Button
@@ -216,12 +205,12 @@ const Page = async ({ params }) => {
           <div className="mt-10 border border-zinc-200 rounded-2xl p-6 bg-zinc-50">
 
             <h3 className="text-xl font-semibold text-zinc-900 mb-4">
-              Preview
+              {purchased ? "Full Content" : "Preview"}
             </h3>
 
             {purchased ? (
               <div>
-                <p className="leading-8 text-zinc-700">
+                <p className="leading-8 text-zinc-700 whitespace-pre-line">
                   {book.fullContent || book.description}
                 </p>
               </div>

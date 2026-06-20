@@ -87,7 +87,7 @@ export default function BookCard({ book }) {
           </h3>
 
           <p className="text-zinc-500 mt-1">
-            by {book.writerName}
+            by {book.authorName}
           </p>
 
           <div className="mt-5 flex items-center justify-between">
