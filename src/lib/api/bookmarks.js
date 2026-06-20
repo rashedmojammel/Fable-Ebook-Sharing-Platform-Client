@@ -1,3 +1,5 @@
+// import { safeJson } from "./fetcher";
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const addBookmark = async (bookmark) => {
@@ -6,7 +8,7 @@ export const addBookmark = async (bookmark) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(bookmark),
   });
-  return res.json();
+   return res.json();
 };
 
 export const removeBookmark = async (bookId, userEmail) => {
@@ -15,7 +17,7 @@ export const removeBookmark = async (bookId, userEmail) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ bookId, userEmail }),
   });
-  return res.json();
+   return res.json();
 };
 
 export const checkBookmark = async (bookId, email) => {
@@ -23,12 +25,12 @@ export const checkBookmark = async (bookId, email) => {
     `${baseUrl}/api/bookmarks/check?bookId=${bookId}&email=${email}`,
     { cache: "no-store" }
   );
-  return res.json();
+   return res.json();
 };
 
 export const getUserBookmarks = async (email) => {
   const res = await fetch(`${baseUrl}/api/bookmarks?email=${email}`, {
     cache: "no-store",
   });
-  return res.json();
+   return res.json();
 };

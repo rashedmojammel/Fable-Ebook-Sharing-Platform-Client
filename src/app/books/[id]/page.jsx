@@ -11,10 +11,15 @@ import {
 
 import { Button, Chip } from "@heroui/react";
 import { getBookById } from "@/lib/api/job";
-import { checkPurchase } from "@/lib/api/purchases";
 import { getUserSession } from "@/lib/core/session";
-import BuyButton from "@/components/Button/BuyButton";
+import { checkPurchase } from "@/lib/api/purchases";
 import BookmarkButton from "@/components/Button/BookmarkButton";
+import BuyButton from "@/components/Button/BuyButton";
+// import { getBookById } from "@/lib/api/job";
+// import { checkPurchase } from "@/lib/api/purchases";
+// import { getUserSession } from "@/lib/core/session";
+// import BuyButton from "@/components/Button/BuyButton";
+// import BookmarkButton from "@/components/Button/BookmarkButton";
 
 const Page = async ({ params }) => {
   const { id } = await params;
@@ -31,7 +36,7 @@ const Page = async ({ params }) => {
           </h1>
 
           <p className="text-zinc-500 mt-3">
-            The ebook you're looking for doesn't exist.
+            The ebook you are looking for doesn not exist.
           </p>
 
           <Link href="/books">

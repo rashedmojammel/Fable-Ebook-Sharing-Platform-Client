@@ -25,7 +25,7 @@ const Page = async () => {
           </h1>
 
           <p className="text-default-500 mt-2">
-            Ebooks you've saved to read or buy later.
+            Ebooks you have saved to read or buy later.
           </p>
         </div>
 

@@ -1,3 +1,5 @@
+
+
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const createPurchase = async (purchase) => {
@@ -14,7 +16,7 @@ export const checkPurchase = async (bookId, email) => {
     `${baseUrl}/api/purchases/check?bookId=${bookId}&email=${email}`,
     { cache: "no-store" }
   );
-  return res.json();
+   return res.json();
 };
 
 export const getUserPurchases = async (email) => {
@@ -28,5 +30,5 @@ export const getWriterSales = async (email) => {
   const res = await fetch(`${baseUrl}/api/sales?email=${email}`, {
     cache: "no-store",
   });
-  return res.json();
+ return res.json();
 };

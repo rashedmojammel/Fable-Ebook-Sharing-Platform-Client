@@ -23,7 +23,7 @@ const Page = async () => {
           </h1>
 
           <p className="text-default-500 mt-2">
-            Access and manage all ebooks you've purchased.
+            Access and manage all ebooks you have purchased.
           </p>
         </div>
 
