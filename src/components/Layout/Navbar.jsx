@@ -187,21 +187,21 @@ const Navbar = () => {
 
                     <div className="p-3">
                       <Link
-                        href="/dashboard"
+                        href="/dashboard/reader"
                         className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50"
                       >
                         📊 Dashboard
                       </Link>
 
                       <Link
-                        href="/my-library"
+                        href="/dashboard/reader/purchased-ebooks"
                         className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50"
                       >
                         📚 My Library
                       </Link>
 
                       <Link
-                        href="/bookmarks"
+                        href="/dashboard/reader/bookmarks"
                         className="flex items-center gap-3 px-4 py-3 rounded-2xl hover:bg-gray-50"
                       >
                         🔖 Bookmarks
