@@ -91,7 +91,6 @@ export async function DashboardSidebar() {
       },
     ],
   };
-
   const navItems = navMap[role];
 
   const NavList = () => (
