@@ -115,7 +115,7 @@ export async function DashboardSidebar() {
       {/* Desktop Sidebar */}
       <aside className="hidden lg:flex w-72 flex-col border-r bg-background h-screen sticky top-0">
         {/* Header */}
-        <div className="p-6 border-b">
+        {/* <div className="p-6 border-b">
           <div className="flex items-center gap-3">
             <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
               <BookOpen className="size-5" />
@@ -125,7 +125,7 @@ export async function DashboardSidebar() {
               <div className="text-[10px] text-muted-foreground -mt-0.5">Publisher Platform</div>
             </div>
           </div>
-        </div>
+        </div> */}
 
         {/* User Info */}
         <div className="p-6 border-b bg-muted/30">

@@ -1,11 +1,11 @@
-import React from 'react';
+// import AdminDashboardHome from "@/components/Dashboard/AdminDashboardHome";
+import AdminDashboardHome from "@/components/Dashboard/AdminDashboardHome";
+import { getAdminAnalytics } from "@/lib/api/analytics";
 
-const page = () => {
-    return (
-        <div>
-            <h1>this is admin page</h1>
-        </div>
-    );
+const Page = async () => {
+  const analytics = await getAdminAnalytics();
+
+  return <AdminDashboardHome analytics={analytics} />;
 };
 
-export default page;
+export default Page;

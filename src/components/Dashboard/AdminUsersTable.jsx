@@ -2,12 +2,16 @@
 
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from '@gravity-ui/icons';
-import { updateUserRole } from '@/lib/actions/users';
+import { updateUserRole, deleteUser } from '@/lib/actions/users';
 
 export default function AdminUsersTable({ users }) {
     const [isConfirmOpen, setIsConfirmOpen] = useState(false);
     const [pendingChange, setPendingChange] = useState(null);
     const [isUpdating, setIsUpdating] = useState(false);
+
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [userToDelete, setUserToDelete] = useState(null);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     const getUserId = (user) => user._id?.$oid || user.id;
 
@@ -39,11 +43,29 @@ export default function AdminUsersTable({ users }) {
         }
     };
 
-    const handleDelete = async (userId) => {
-        console.log('Delete User:', userId);
+    const handleDelete = (userId, userName) => {
+        setUserToDelete({
+            userId,
+            userName,
+        });
 
-        // TODO:
-        // await deleteUser(userId);
+        setIsDeleteModalOpen(true);
+    };
+
+    const confirmDelete = async () => {
+        if (!userToDelete) return;
+
+        setIsDeleting(true);
+
+        try {
+            await deleteUser(userToDelete.userId);
+        } catch (error) {
+            console.error('Failed to delete user:', error);
+        } finally {
+            setIsDeleting(false);
+            setIsDeleteModalOpen(false);
+            setUserToDelete(null);
+        }
     };
 
     return (
@@ -92,10 +114,10 @@ export default function AdminUsersTable({ users }) {
                                                 <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-semibold text-sm">
                                                     {user.name
                                                         ? user.name
-                                                            .split(' ')
-                                                            .map((word) => word[0])
-                                                            .join('')
-                                                            .toUpperCase()
+                                                              .split(' ')
+                                                              .map((word) => word[0])
+                                                              .join('')
+                                                              .toUpperCase()
                                                         : 'U'}
                                                 </div>
 
@@ -168,7 +190,10 @@ export default function AdminUsersTable({ users }) {
 
                                                 <button
                                                     onClick={() =>
-                                                        handleDelete(userId)
+                                                        handleDelete(
+                                                            userId,
+                                                            user.name
+                                                        )
                                                     }
                                                     className="px-3 py-1.5 text-xs rounded-md bg-red-100 text-red-700 hover:bg-red-200 transition"
                                                 >
@@ -203,11 +228,10 @@ export default function AdminUsersTable({ users }) {
                 </div>
             </div>
 
-            {/* Confirmation Modal */}
+            {/* Role Change Modal */}
             {isConfirmOpen && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
                     <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-xl">
-
                         <h3 className="text-lg font-semibold text-gray-900">
                             Confirm Role Change
                         </h3>
@@ -244,7 +268,46 @@ export default function AdminUsersTable({ users }) {
                                 {isUpdating ? 'Updating...' : 'Confirm'}
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
 
+            {/* Delete Confirmation Modal */}
+            {isDeleteModalOpen && (
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+                    <div className="w-full max-w-md rounded-xl border border-gray-200 bg-white p-6 shadow-xl">
+                        <h3 className="text-lg font-semibold text-red-600">
+                            Confirm Delete
+                        </h3>
+
+                        <p className="mt-3 text-sm text-gray-600">
+                            Are you sure you want to delete{' '}
+                            <span className="font-medium text-gray-900">
+                                {userToDelete?.userName}
+                            </span>
+                            ? This action cannot be undone.
+                        </p>
+
+                        <div className="mt-6 flex justify-end gap-3">
+                            <button
+                                disabled={isDeleting}
+                                onClick={() => {
+                                    setIsDeleteModalOpen(false);
+                                    setUserToDelete(null);
+                                }}
+                                className="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-100"
+                            >
+                                Cancel
+                            </button>
+
+                            <button
+                                disabled={isDeleting}
+                                onClick={confirmDelete}
+                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                            >
+                                {isDeleting ? 'Deleting...' : 'Delete'}
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
