@@ -15,6 +15,7 @@ import {
 } from "@gravity-ui/icons";
 
 import { deletebook, updateBookStatus } from "@/lib/actions/books";
+import { toast } from "react-toastify";
 
 const ManageEbooksTable = ({ books }) => {
     const [list, setList] = useState(books);
@@ -31,11 +32,11 @@ const ManageEbooksTable = ({ books }) => {
             if (res.deletedCount > 0) {
                 setList((prev) => prev.filter((b) => b._id !== book._id));
             } else {
-                alert("Failed to delete ebook");
+                toast.error("Failed to delete ebook");
             }
         } catch (error) {
             console.log(error);
-            alert("Failed to delete ebook");
+            toast.error("Failed to delete ebook");
         } finally {
             setBusyId(null);
         }
@@ -55,11 +56,11 @@ const ManageEbooksTable = ({ books }) => {
                     )
                 );
             } else {
-                alert("Failed to update status");
+                toast.error("Failed to update status");
             }
         } catch (error) {
             console.log(error);
-            alert("Failed to update status");
+            toast.error("Failed to update status");
         } finally {
             setBusyId(null);
         }

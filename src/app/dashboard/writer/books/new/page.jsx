@@ -27,6 +27,7 @@ import {
 import { createbook } from "@/lib/actions/books";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
+// import { toast } from "react-toastify";
 
 export default function AddEbookForm() {
     const router = useRouter();
@@ -123,7 +124,7 @@ export default function AddEbookForm() {
             const res = await createbook(payload);
 
             if (res.insertedId) {
-                alert("Ebook published successfully!");
+                toast.success("Ebook published successfully!");
 
                 e.target.reset();
                 setCoverFile(null);
@@ -133,7 +134,7 @@ export default function AddEbookForm() {
         } catch (error) {
             console.log(error);
 
-            alert("Failed to publish ebook");
+            toast.error("Failed to publish ebook");
         } finally {
             setLoading(false);
         }

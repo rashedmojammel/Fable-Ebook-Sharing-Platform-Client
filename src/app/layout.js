@@ -3,6 +3,7 @@ dns.setServers(['8.8.8.8','8.8.4.4'])
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/Layout/Navbar';
+import { ToastContainer } from 'react-toastify';
 // import Footer from '@/components/Layout/Footer';
 // import { ToastContainer } from "react-toastify";
 
@@ -36,9 +37,10 @@ export default function RootLayout({ children }) {
         {/* <Banner /> */}
         {children}
 
+
         
           
-        {/* <ToastContainer /> */}
+        <ToastContainer />
       </body>
     </html>
   );

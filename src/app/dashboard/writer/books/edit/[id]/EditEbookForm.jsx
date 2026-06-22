@@ -24,6 +24,7 @@ import {
 
 import { updatebook } from "@/lib/actions/books";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function EditEbookForm({ book }) {
     const router = useRouter();
@@ -93,14 +94,14 @@ export default function EditEbookForm({ book }) {
             const res = await updatebook(book._id, payload);
 
             if (res.acknowledged) {
-                alert("Ebook updated successfully!");
+                toast.success("Ebook updated successfully!");
                 router.push("/dashboard/writer/manage-ebooks");
             } else {
-                alert("Failed to update ebook");
+                toast.error("Failed to update ebook");
             }
         } catch (error) {
             console.log(error);
-            alert("Failed to update ebook");
+            toast.error("Failed to update ebook");
         } finally {
             setLoading(false);
         }
