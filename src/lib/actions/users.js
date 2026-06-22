@@ -16,3 +16,13 @@ export const updateUserRole = async (userId, role) => {
 
     return data;
 }
+export const deleteUser = async (userId) => {
+    const data = await auth.api.removeUser({
+        body: {
+            userId: userId
+        },
+        headers: await headers()
+    })
+    revalidatePath('/dashboard/admin/users');
+    return data;
+}
