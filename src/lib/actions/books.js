@@ -1,6 +1,6 @@
 // 'use server'
 
-// const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
+
 
 // export const createbook = async(newBookData) =>{
 
@@ -47,6 +47,7 @@
 "use server";
 
 import { serverMutation } from "../core/server";
+ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL
 
 // import { serverMutation } from "@/lib/core/fetch";
 
@@ -58,10 +59,17 @@ export const updatebook = async (id, updatedData) => {
   return serverMutation(`/api/books/${id}`, updatedData, "PATCH");
 };
 
-export const deletebook = async (id) => {
-  return serverMutation(`/api/books/${id}`, null, "DELETE");
-};
+// export const deletebook = async (id) => {
+//   return serverMutation(`/api/books/${id}`, null, "DELETE");
+// };
 
+
+export const deletebook = async (id) => {
+    const res = await fetch(`${baseUrl}/api/books/${id}`, {
+        method: 'DELETE',
+    })
+    return res.json();
+}
 export const updateBookStatus = async (id, status) => {
   return serverMutation(`/api/books/${id}/status`, { status }, "PATCH");
 };

@@ -81,8 +81,8 @@ export async function DashboardSidebar() {
       },
       { 
         icon: SquarePlus, 
-        href: "/dashboard/admin/manage-ebooks", 
-        label: "Manage Ebooks" 
+        href: "/dashboard/admin/manage-books", 
+        label: "Manage Books" 
       },
       { 
         icon: ChartColumn, 
