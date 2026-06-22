@@ -1,19 +1,16 @@
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+// import { serverFetch } from "@/lib/core/fetch";
+
+import { serverFetch } from "../core/server";
+
+// import { serverFetch } from "../core/server";
+
+// import { serverFetch } from "../core/server";
 
 export const getBooks = async (email) => {
-    const url = email 
-        ? `${baseUrl}/api/books?email=${email}`
-        : `${baseUrl}/api/books`;
-    const res = await fetch(url);
-    return res.json();
-}
-export const getBookById = async (id) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/books/${id}`,
-    {
-      cache: "no-store",
-    }
-  );
+  const path = email ? `/api/books?email=${email}` : `/api/books`;
+  return serverFetch(path);
+};
 
-  return res.json();
+export const getBookById = async (id) => {
+  return serverFetch(`/api/books/${id}`);
 };

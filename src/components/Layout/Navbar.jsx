@@ -32,10 +32,12 @@ const Navbar = () => {
   if(user?.email){
     navLinks.push({
        label: "Dashboard" ,
-       href: dashboardLinks[user?.role || 'reader']
+       href: dashboardLinks[user?.userRole || 'reader']
       
       });
   }
+
+
 
   const handleSignOut = async () => {
     await signOut({
@@ -89,8 +91,8 @@ const Navbar = () => {
 
           {/* Desktop Nav */}
           <ul className="hidden md:flex items-center gap-2 bg-gray-50/80 border border-gray-100 rounded-full px-3 py-2 shadow-inner">
-            {navLinks.map((link) => (
-              <li key={link.href}>
+            {navLinks.map((link,idx) => (
+              <li key={idx}>
                 <Link
                   href={link.href}
                   className="px-5 py-2 rounded-full text-sm font-semibold text-gray-600 hover:bg-white hover:text-gray-900 transition"
@@ -152,9 +154,9 @@ const Navbar = () => {
                       {user.name}
                     </p>
 
-                    {user.role && (
+                    {user.userRole && (
                       <p className="text-xs text-gray-400">
-                        {user.role}
+                        {user.userRole}
                       </p>
                     )}
                   </div>
@@ -227,9 +229,9 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden pb-5 border-t border-gray-100">
             <div className="flex flex-col gap-2 pt-4">
-              {navLinks.map((link) => (
+              {navLinks.map((link,idx) => (
                 <Link
-                  key={link.href}
+                  key={idx}
                   href={link.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className="px-4 py-3 rounded-2xl font-medium hover:bg-gray-50"

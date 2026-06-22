@@ -33,7 +33,7 @@ export default function SignupPage() {
                 email,
                 password,
                 name,
-                role,
+                userRole: role, // Pass the selected role to the backend
                 callbackURL: "/",
             });
             console.log("Signup response:", data, authError);

@@ -6,7 +6,7 @@ import { Button } from "@heroui/react";
 import { Bookmark } from "@gravity-ui/icons";
 
 import { useSession } from "@/lib/auth-client";
-import { addBookmark, removeBookmark, checkBookmark } from "@/lib/api/bookmarks";
+import { addBookmark, removeBookmark, checkBookmark } from "@/lib/actions/bookmark";
 
 export default function BookmarkButton({ book }) {
   const { data: session } = useSession();

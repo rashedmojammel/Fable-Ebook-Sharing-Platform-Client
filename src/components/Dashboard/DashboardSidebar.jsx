@@ -16,7 +16,7 @@ import { getUserSession } from "@/lib/core/session";
 
 export async function DashboardSidebar() {
   const user = await getUserSession();
-  const role = user?.role || "reader";
+  const role = user?.userRole || "reader";
 
   const navMap = {
     reader: [
@@ -96,7 +96,7 @@ export async function DashboardSidebar() {
 
   const NavList = () => (
     <nav className="flex flex-col gap-1">
-      {navItems.map((item) => (
+      {navItems?.map((item) => (
         <Link
           key={item.href}
           href={item.href}
