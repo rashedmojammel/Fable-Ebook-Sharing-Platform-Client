@@ -4,9 +4,6 @@ import React from 'react';
 
 const WriterBooks = async() => {
 
-
-
-
     const user = getUserSession();
     const userEmail = user?.email; // Extract email from the user session
     const books = await getBooks(userEmail); // Fetch books for the specified email

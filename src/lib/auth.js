@@ -29,18 +29,18 @@ export const auth = betterAuth({
   },
 
   
-  databaseHooks: {
-    user: {
-      before: async (user) => {
-        const role = user.userRole;
+  // databaseHooks: {
+  //   user: {
+  //     before: async (user) => {
+  //       const role = user.userRole;
 
-        return {
-          ...user,
-          userRole: role || "reader",
-        };
-      },
-    },
-  },
+  //       return {
+  //         ...user,
+  //         userRole: role || "reader",
+  //       };
+  //     },
+  //   },
+  // },
 
   plugins: [admin()],
 });

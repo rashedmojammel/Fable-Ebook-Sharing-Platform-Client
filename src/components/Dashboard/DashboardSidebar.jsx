@@ -231,7 +231,8 @@ import {
 
 // import { getUserSession } from "@/lib/core/session";
 
-export async function DashboardSidebar({ user }) {
+export  function DashboardSidebar({ user }) {
+  console.log("User in DashboardSidebar:", user);
   // const user = await getUserSession();
   const role = user?.userRole || "reader";
 
@@ -304,16 +305,6 @@ export async function DashboardSidebar({ user }) {
           <NavList />
         </div>
 
-        {/* Footer */}
-        <div className="p-4 border-t mt-auto">
-          <Link
-            href="/dashboard/settings"
-            className="flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-muted-foreground hover:bg-accent hover:text-foreground transition-all"
-          >
-            <Person className="size-5" />
-            Account Settings
-          </Link>
-        </div>
       </aside>
 
       {/* Mobile — uses a plain checkbox toggle, no UI lib needed */}
@@ -385,7 +376,7 @@ function MobileSidebar({ role, user, children }) {
         {/* Nav */}
         <div className="flex-1 overflow-auto p-4" onClick={() => setOpen(false)}>
           <div className="mb-2 px-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            {role === "writer" ? "Writer Studio" : role === "admin" ? "Admin Panel" : "Reader Hub"}
+            {user === "writer" ? "Writer Studio" : role === "admin" ? "Admin Panel" : "Reader Hub"}
           </div>
           {children}
         </div>

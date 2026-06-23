@@ -27,6 +27,8 @@ export default function SignupPage() {
         setSuccess("");
         setIsLoading(true);
 
+        console.log("Signup Details:", role);
+
         try {
         
             const { data, error: authError } = await signUp.email({
