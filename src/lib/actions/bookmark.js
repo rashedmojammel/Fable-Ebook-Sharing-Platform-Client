@@ -2,8 +2,6 @@
 
 import { serverFetch, serverMutation } from "../core/server";
 
-// import { serverFetch, serverMutation } from "@/lib/core/server";
-
 export const addBookmark = async (bookmark) => {
   return serverMutation("/api/bookmarks", bookmark);
 };
