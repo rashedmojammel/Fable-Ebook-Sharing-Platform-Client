@@ -229,10 +229,10 @@ import {
   LayoutSideContentLeft, Person, House, Xmark,
 } from "@gravity-ui/icons";
 
-import { getUserSession } from "@/lib/core/session";
+// import { getUserSession } from "@/lib/core/session";
 
-export async function DashboardSidebar() {
-  const user = await getUserSession();
+export async function DashboardSidebar({ user }) {
+  // const user = await getUserSession();
   const role = user?.userRole || "reader";
 
   const navMap = {
