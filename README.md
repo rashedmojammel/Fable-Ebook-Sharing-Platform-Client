@@ -12,8 +12,8 @@
 
 ## 🌐 Live Demo
 
-**Live Site:** [https://your-fable-app.vercel.app](https://your-fable-app.vercel.app)  
-*(Replace with your actual deployed Vercel URL)*
+**Live Site:** https://fable-ebook-sharing-platform-client.vercel.app/
+
 
 ## 📋 Project Overview
 
