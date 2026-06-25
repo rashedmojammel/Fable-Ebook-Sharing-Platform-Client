@@ -1,6 +1,7 @@
 # Fable – Digital Ebook Sharing Platform
 
-![Fable Banner](https://via.placeholder.com/1280x400/4F46E5/FFFFFF?text=Fable+-+Ebook+Sharing+Platform)  
+<img width="1535" height="686" alt="image" src="https://github.com/user-attachments/assets/586fcb54-4237-4260-8afe-fe59606b72ab" />
+ 
 <!-- Replace with actual high-quality banner/screenshot -->
 
 **A modern full-stack MERN platform connecting readers with talented writers.**
@@ -58,7 +59,7 @@ The platform demonstrates advanced full-stack development practices using modern
 | **Auth**     | BetterAuth (Email + Google OAuth) |
 | **Payments** | Stripe |
 | **Image**    | imgBB API |
-| **Deployment** | Vercel (Frontend), Render/Railway (Backend), MongoDB Atlas |
+| **Deployment** | Vercel (Frontend), MongoDB Atlas |
 
 ## 🚀 Getting Started
 
