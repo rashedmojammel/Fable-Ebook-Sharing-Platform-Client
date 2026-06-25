@@ -1,71 +1,69 @@
 # Fable – Digital Ebook Sharing Platform
 
-<img width="1535" height="686" alt="image" src="https://github.com/user-attachments/assets/586fcb54-4237-4260-8afe-fe59606b72ab" />
- 
-<!-- Replace with actual high-quality banner/screenshot -->
+<img width="1535" height="686" alt="Fable Platform" src="https://github.com/user-attachments/assets/586fcb54-4237-4260-8afe-fe59606b72ab" />
 
-**A modern full-stack MERN platform connecting readers with talented writers.**
+**A modern full-stack platform connecting readers with talented writers through original ebooks.**
 
 [![Next.js](https://img.shields.io/badge/Next.js-000000?logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://mongodb.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Stripe](https://img.shields.io/badge/Stripe-635BFF?logo=stripe&logoColor=white)](https://stripe.com/)
 
 ## 🌐 Live Demo
 
 **Live Site:** [https://your-fable-app.vercel.app](https://your-fable-app.vercel.app)  
-*(Update with your actual deployed URL)*
+*(Replace with your actual deployed Vercel URL)*
 
 ## 📋 Project Overview
 
-Fable is a comprehensive ebook sharing and selling platform built to democratize access to original literature. It features a robust **role-based access control system** with three user roles — **Reader**, **Writer**, and **Admin** — complete with secure payments, content management, and analytics.
+Fable is a comprehensive **ebook sharing and selling platform** designed to bridge readers and emerging writers. The platform features a robust **role-based access control (RBAC)** system with three distinct roles: **Reader**, **Writer**, and **Admin**.
 
-The platform demonstrates advanced full-stack development practices using modern technologies and industry-standard tools.
+Built with modern web technologies, Fable provides a seamless experience for browsing, purchasing, publishing, and managing ebooks, along with secure payment integration and administrative oversight.
 
 ## ✨ Key Features
 
-### For Readers
-- Browse, search, filter, and paginate ebooks
-- Secure purchase via **Stripe** Checkout
+### 👤 For Readers
+- Advanced browsing with search, filters, and pagination
+- Secure ebook purchases via **Stripe Checkout**
 - Personal library, purchase history, bookmarks, and wishlist
-- Role-specific dashboard with clean, intuitive UI
+- Intuitive role-specific dashboard
 
-### For Writers
-- Upload and manage ebooks (with imgBB image hosting)
+### ✍️ For Writers
+- Upload and manage ebooks (cover images hosted via imgBB)
 - Publish, unpublish, edit, and delete books
-- Sales tracking and earnings overview
+- Sales analytics and earnings tracking
 - Dedicated writer dashboard
 
-### For Admins
-- Complete user management (role assignment & moderation)
-- Global ebook moderation
-- Transaction history and revenue analytics
-- Overview dashboard with statistical insights
+### ⚙️ For Admins
+- User management (role changes and moderation)
+- Global ebook moderation and control
+- Complete transaction and revenue analytics
+- Overview dashboard with key metrics
 
-### General Features
-- Responsive design with excellent mobile experience
-- Smooth animations using Framer Motion
-- Advanced search & filtering (title, author, genre, price range)
+### 🌟 General Features
+- Fully responsive design with excellent mobile experience
+- Smooth animations powered by Framer Motion
 - Secure authentication (Email/Password + Google OAuth via BetterAuth)
-- Protected routes with proper client-side hydration handling
-- Dark mode support (optional)
+- Protected routes with proper hydration handling
+- Modern, clean, and recruiter-friendly UI/UX
 
 ## 🛠️ Technology Stack
 
-| Layer       | Technologies |
-|-------------|--------------|
-| **Frontend** | Next.js 15 (App Router), React, TypeScript, Tailwind CSS, Framer Motion |
-| **Backend**  | Node.js, Express.js, MongoDB (Mongoose), JWT |
-| **Auth**     | BetterAuth (Email + Google OAuth) |
-| **Payments** | Stripe |
-| **Image**    | imgBB API |
+| Layer          | Technologies                                      |
+|----------------|---------------------------------------------------|
+| **Frontend**   | Next.js 15 (App Router), React, JavaScript, Tailwind CSS, Framer Motion |
+| **Backend**    | Node.js, Express.js, MongoDB (Mongoose), JWT      |
+| **Authentication** | BetterAuth (Email + Google OAuth)              |
+| **Payments**   | Stripe                                            |
+| **Image Hosting** | imgBB API                                      |
 | **Deployment** | Vercel (Frontend), MongoDB Atlas |
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js (v18 or higher)
-- MongoDB Database
+- MongoDB Database (Atlas recommended)
 - Stripe Account
 - imgBB API Key
 
@@ -74,10 +72,10 @@ The platform demonstrates advanced full-stack development practices using modern
 1. **Clone the repositories**
 
 ```bash
-# Frontend
-git clone https://github.com/yourusername/fable-client.git
-cd fable-client
+# Frontend Client
+git clone https://github.com/rashedmojammel/Fable-Ebook-Sharing-Platform-Client.git
+cd Fable-Ebook-Sharing-Platform-Client
 
-# Backend (in separate terminal)
-git clone https://github.com/yourusername/fable-server.git
-cd fable-server
+# Backend Server (in a separate terminal)
+git clone https://github.com/rashedmojammel/Fable-Ebook-Sharing-Platform---Server.git
+cd Fable-Ebook-Sharing-Platform---Server
