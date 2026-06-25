@@ -12,7 +12,7 @@ import { getUserBookmarks } from "@/lib/api/bookmarks";
 const Page = async () => {
   const user = await getUserSession();
 
-  const bookmarks = await getUserBookmarks(user?.email);
+  const bookmarks = (await getUserBookmarks(user?.email)) || [];
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-10 px-4 sm:px-6 lg:px-8">

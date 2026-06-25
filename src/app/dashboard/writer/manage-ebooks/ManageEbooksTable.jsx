@@ -35,7 +35,7 @@ const ManageEbooksTable = ({ books }) => {
                 toast.error("Failed to delete ebook");
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Failed to delete ebook");
         } finally {
             setBusyId(null);
@@ -59,7 +59,7 @@ const ManageEbooksTable = ({ books }) => {
                 toast.error("Failed to update status");
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Failed to update status");
         } finally {
             setBusyId(null);

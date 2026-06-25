@@ -2,7 +2,7 @@
 
 // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
-import { serverFetch, serverMutation } from "../core/server";
+import { protectedFetch, serverFetch, serverMutation } from "../core/server";
 
 // import { serverFetch, serverMutation } from "../core/server";
 
@@ -43,11 +43,11 @@ export const createPurchase = async (purchase) => {
 };
 
 export const checkPurchase = async (bookId, email) => {
-  return serverFetch(`/api/purchases/check?bookId=${bookId}&email=${email}`);
+  return protectedFetch(`/api/purchases/check?bookId=${bookId}&email=${email}`);
 };
 
 export const getUserPurchases = async (email) => {
-  return serverFetch(`/api/purchases?email=${email}`);
+  return protectedFetch(`/api/purchases?email=${email}`);
 };
 
 export const getWriterSales = async (email) => {

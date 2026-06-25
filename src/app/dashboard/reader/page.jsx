@@ -41,7 +41,7 @@ const page = async () => {
   const purchases = (await getUserPurchases(user?.email)) || [];
   const bookmarks = (await getUserBookmarks(user?.email)) || [];
 
-  const totalSpent = purchases.reduce(
+  const totalSpent = purchases?.reduce(
     (sum, purchase) => sum + Number(purchase.price || 0),
     0
   );

@@ -232,7 +232,7 @@ import {
 // import { getUserSession } from "@/lib/core/session";
 
 export  function DashboardSidebar({ user }) {
-  console.log("User in DashboardSidebar:", user);
+  // console.log("User in DashboardSidebar:", user);
   // const user = await getUserSession();
   const role = user?.userRole || "reader";
 

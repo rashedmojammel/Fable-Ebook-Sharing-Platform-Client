@@ -8,10 +8,11 @@ const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const authHeaders = async () => {
     const token = await getUserToken();
+    console.log("Token in authHeaders:", token);
     const header = token ?{
         authorization: `Bearer ${token}`,
     } : {};
-    console.log(header);
+    // console.log(header);
 
     return header;
 }
@@ -24,20 +25,24 @@ export const serverFetch = async (path) => {
 
 
 export const serverMutation = async (path, data, method = 'POST') => {
+    console.log( await authHeaders());
     const res = await fetch(`${baseUrl}${path}`, {
         method: method,
         headers: {
             'Content-Type': 'application/json',
-            ... await authHeaders()
+            ...await authHeaders()
         },
         body: JSON.stringify(data),
     });
+    console.log(res);
 
 
     return handleStatusCode(res);
 }
 
 export const protectedFetch = async (path) => {
+    console.log(await authHeaders(),"token in protectedFetch");
+    console.log(`${baseUrl}${path}`,"url in protectedFetch");
     const res = await fetch(`${baseUrl}${path}`,
         {
             headers: await authHeaders()

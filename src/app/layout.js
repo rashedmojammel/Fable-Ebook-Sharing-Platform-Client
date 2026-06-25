@@ -2,8 +2,9 @@ import dns from 'node:dns'
 dns.setServers(['8.8.8.8','8.8.4.4'])
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from '@/components/Layout/Navbar';
+// import Navbar from '@/components/Layout/Navbar';
 import { ToastContainer } from 'react-toastify';
+import Navbar from '@/components/Layout/Navbar';
 // import Footer from '@/components/Layout/Footer';
 // import { ToastContainer } from "react-toastify";
 
@@ -32,7 +33,7 @@ export default function RootLayout({ children }) {
     >
       <body className="min-h-full flex flex-col">
         {/* <Navbar /> */} 
-        <Navbar />
+       <Navbar />
       
         {/* <Banner /> */}
         {children}

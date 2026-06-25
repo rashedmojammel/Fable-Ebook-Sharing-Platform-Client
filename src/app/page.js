@@ -6,6 +6,8 @@ import FeaturedEbooks from "@/components/Sections/FeaturedEbook";
 import TopWriters from "@/components/Sections/TopWriterSection";
 import EbookGenres from "@/components/Sections/EbookGenresSection";
 import Footer from "@/components/Layout/Footer";
+import Navbar from "@/components/Layout/Navbar";
+// import Navbar from "@/components/Layout/Navbar";
 
 export default async function Home() {
   const featuredBooks = (await getFeaturedBooks()) || [];
@@ -13,6 +15,7 @@ export default async function Home() {
 
   return (
     <>
+      <Navbar />
       <HeroBanner />
       <FeaturedEbooks books={featuredBooks} />
       <TopWriters writers={topWriters} />

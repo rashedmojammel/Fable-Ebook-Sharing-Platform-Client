@@ -35,7 +35,7 @@ export default function AdminUsersTable({ users }) {
                 pendingChange.newRole
             );
         } catch (error) {
-            console.error('Failed to update role:', error);
+            // console.error('Failed to update role:', error);
         } finally {
             setIsUpdating(false);
             setIsConfirmOpen(false);
@@ -60,7 +60,7 @@ export default function AdminUsersTable({ users }) {
         try {
             await deleteUser(userToDelete.userId);
         } catch (error) {
-            console.error('Failed to delete user:', error);
+            // console.error('Failed to delete user:', error);
         } finally {
             setIsDeleting(false);
             setIsDeleteModalOpen(false);

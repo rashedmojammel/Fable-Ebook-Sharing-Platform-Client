@@ -100,7 +100,7 @@ export default function EditEbookForm({ book }) {
                 toast.error("Failed to update ebook");
             }
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             toast.error("Failed to update ebook");
         } finally {
             setLoading(false);
