@@ -10,6 +10,7 @@ const client = new MongoClient(process.env.MONGODB_URI);
 const db = client.db(process.env.AUTH_DB_NAME);
 
 export const auth = betterAuth({
+  trustedOrigins: [process.env.BETTER_AUTH_URL],
   emailAndPassword: {
     enabled: true,
   },
@@ -58,15 +59,15 @@ export const auth = betterAuth({
   //   },
   // },
 
-  session : {
-    cookieCache :{
-      enabled : true,
-      strategy : "jwt",
-      maxAge : 60 * 60 * 24 * 7, // 7 days
+  // session : {
+  //   cookieCache :{
+  //     enabled : true,
+  //     strategy : "jwt",
+  //     maxAge : 60 * 60 * 24 * 7, // 7 days
 
 
-    }
-  },
+  //   }
+  // },
 
   plugins: 
   [
