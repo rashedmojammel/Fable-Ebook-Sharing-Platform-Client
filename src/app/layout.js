@@ -4,7 +4,7 @@ dns.setServers(['8.8.8.8', '8.8.4.4'])
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Navbar from '@/components/Layout/Navbar';
-import Providers from '@/components/Providers';
+import Providers from '@/components/Layout/Providers';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
