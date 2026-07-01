@@ -10,7 +10,7 @@
 [![MongoDB](https://img.shields.io/badge/MongoDB-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![Stripe](https://img.shields.io/badge/Stripe-635BFF?logo=stripe&logoColor=white)](https://stripe.com/)
 
-## 🌐 Live Demo
+## 🌐 Live Demo :
 
 **Live Site:** [https://your-fable-app.vercel.app](https://your-fable-app.vercel.app)  
 *(Replace with your actual deployed Vercel URL)*
