@@ -223,6 +223,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import {
   BookOpen, SquarePlus, Bookmark,
   ClockArrowRotateLeft, ShoppingCart, ChartColumn,
@@ -230,6 +231,35 @@ import {
 } from "@gravity-ui/icons";
 
 // import { getUserSession } from "@/lib/core/session";
+
+function NavList({ navItems, pathname, onClick }) {
+  return (
+    <nav className="flex flex-col gap-2">
+      {navItems.map((item) => {
+        const active = pathname === item.href;
+        return (
+          <Link
+            key={item.href}
+            href={item.href}
+            className={`group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
+              active
+                ? "bg-violet-600 text-white shadow-lg"
+                : "text-zinc-700 hover:bg-violet-50 hover:text-violet-700"
+            }`}
+            onClick={onClick}
+          >
+            <div className={`flex h-5 w-5 items-center justify-center rounded-full transition ${
+              active ? "bg-white text-violet-600" : "bg-violet-100 text-violet-600"
+            }`}>
+              <item.icon className="size-5" />
+            </div>
+            <span>{item.label}</span>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+}
 
 export  function DashboardSidebar({ user }) {
   // console.log("User in DashboardSidebar:", user);
@@ -258,39 +288,36 @@ export  function DashboardSidebar({ user }) {
     ],
   };
 
+  const pathname = usePathname();
   const navItems = navMap[role] ?? [];
-
-  const NavList = () => (
-    <nav className="flex flex-col gap-1">
-      {navItems.map((item) => (
-        <Link
-          key={item.href}
-          href={item.href}
-          className="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-foreground/80 hover:bg-accent hover:text-foreground transition-all duration-200 active:scale-[0.985]"
-        >
-          <div className="flex h-5 w-5 items-center justify-center text-muted-foreground group-hover:text-foreground transition-colors">
-            <item.icon className="size-5" />
-          </div>
-          <span>{item.label}</span>
-        </Link>
-      ))}
-    </nav>
-  );
 
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex w-72 flex-col border-r bg-background h-screen sticky top-0">
-        {/* User Info */}
-        <div className="p-6 border-b bg-muted/30">
+      <aside className="hidden lg:flex w-80 flex-col border-r border-zinc-200 bg-white h-screen sticky top-0 shadow-sm">
+        {/* Branding */}
+        <div className="p-6 border-b border-zinc-200">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
-              <Person className="size-5 text-primary" />
+            <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-100 text-violet-700 shadow-sm">
+              <BookOpen className="size-5" />
+            </div>
+            <div>
+              <p className="text-base font-semibold text-zinc-900">Fable Dashboard</p>
+              <p className="text-xs text-zinc-500">Manage your reading and publishing</p>
+            </div>
+          </div>
+        </div>
+
+        {/* User Info */}
+        <div className="p-6 border-b border-zinc-200 bg-violet-50">
+          <div className="flex items-center gap-3">
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-linear-to-br from-violet-500 to-fuchsia-500 text-white shadow-md">
+              <Person className="size-6" />
             </div>
             <div className="min-w-0">
-              <div className="font-medium truncate">{user?.name || "User"}</div>
-              <div className="text-xs text-muted-foreground truncate">{user?.email}</div>
-              <div className="mt-1 inline-block px-2 py-0.5 text-[10px] font-medium rounded-md bg-primary/10 text-primary capitalize">
+              <p className="font-semibold text-zinc-900 truncate">{user?.name || "Reader"}</p>
+              <p className="text-xs text-zinc-500 truncate">{user?.email}</p>
+              <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-violet-600 shadow-sm">
                 {role}
               </div>
             </div>
@@ -298,25 +325,33 @@ export  function DashboardSidebar({ user }) {
         </div>
 
         {/* Navigation */}
-        <div className="flex-1 overflow-auto p-4">
-          <div className="mb-2 px-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+        <div className="flex-1 overflow-auto p-5">
+          <div className="mb-4 px-2 text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500">
             {role === "writer" ? "Writer Studio" : role === "admin" ? "Admin Panel" : "Reader Hub"}
           </div>
-          <NavList />
+          <NavList navItems={navItems} pathname={pathname} />
         </div>
 
+        {/* Footer */}
+        <div className="p-5 border-t border-zinc-200">
+          <Link
+            href="/dashboard/profile"
+            className="group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-zinc-700 hover:bg-violet-50 hover:text-violet-700 transition"
+          >
+            <Person className="size-5" />
+            Account Settings
+          </Link>
+        </div>
       </aside>
 
       {/* Mobile — uses a plain checkbox toggle, no UI lib needed */}
-      <MobileSidebar role={role} user={user}>
-        <NavList />
-      </MobileSidebar>
+      <MobileSidebar role={role} user={user} navItems={navItems} pathname={pathname} />
     </>
   );
 }
 
 // separate client component just for mobile drawer toggle
-function MobileSidebar({ role, user, children }) {
+function MobileSidebar({ role, user, navItems, pathname }) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -363,7 +398,7 @@ function MobileSidebar({ role, user, children }) {
         {/* User */}
         <div className="p-5 border-b bg-muted/30">
           <div className="flex items-center gap-3">
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-primary/10 to-primary/5 border border-primary/20">
               <Person className="size-5 text-primary" />
             </div>
             <div className="min-w-0">
@@ -376,9 +411,9 @@ function MobileSidebar({ role, user, children }) {
         {/* Nav */}
         <div className="flex-1 overflow-auto p-4" onClick={() => setOpen(false)}>
           <div className="mb-2 px-4 text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-            {user === "writer" ? "Writer Studio" : role === "admin" ? "Admin Panel" : "Reader Hub"}
+            {role === "writer" ? "Writer Studio" : role === "admin" ? "Admin Panel" : "Reader Hub"}
           </div>
-          {children}
+          <NavList navItems={navItems} pathname={pathname} onClick={() => setOpen(false)} />
         </div>
       </div>
     </div>
