@@ -10,9 +10,11 @@ import {
 } from "@gravity-ui/icons";
 import { Card, Button } from "@heroui/react";
 
+import BookCard from "@/components/Books/BookCard";
 import { getUserSession } from "@/lib/core/session";
 import { getUserPurchases } from "@/lib/api/purchases";
 import { getUserBookmarks } from "@/lib/api/bookmarks";
+import { getBooks } from "@/lib/api/job";
 
 const timeAgo = (date) => {
   const seconds = Math.floor((new Date() - new Date(date)) / 1000);
@@ -40,6 +42,7 @@ const page = async () => {
 
   const purchases = (await getUserPurchases(user?.email)) || [];
   const bookmarks = (await getUserBookmarks(user?.email)) || [];
+  const allBooks = (await getBooks()) || [];
 
   const totalSpent = purchases?.reduce(
     (sum, purchase) => sum + Number(purchase.price || 0),
@@ -109,10 +112,29 @@ const page = async () => {
     .sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 5);
 
+  const userBookIds = new Set([
+    ...purchases.map((purchase) => purchase.bookId),
+    ...bookmarks.map((bookmark) => bookmark.bookId),
+  ]);
+
+  const favoriteGenres = new Set(
+    [...purchases, ...bookmarks]
+      .map((item) => {
+        const book = allBooks.find((book) => book._id === item.bookId);
+        return book?.genre;
+      })
+      .filter(Boolean)
+  );
+
+  const recommendedBooks = allBooks
+    .filter((book) => favoriteGenres.has(book.genre))
+    .filter((book) => !userBookIds.has(book._id))
+    .slice(0, 4);
+
   return (
     <div className="p-8 space-y-8 bg-gray-50 min-h-screen">
       {/* Welcome Banner */}
-      <div className="rounded-3xl bg-gradient-to-r from-blue-600 to-indigo-600 p-8 text-white shadow-lg">
+      <div className="rounded-3xl bg-linear-to-r from-blue-600 to-indigo-600 p-8 text-white shadow-lg">
         <h1 className="text-3xl font-bold">
           Welcome Back{user?.name ? `, ${user.name}` : ""} 👋
         </h1>
@@ -246,6 +268,39 @@ const page = async () => {
         </div>
 
       </div>
+
+      {/* Recommended for You */}
+      <div className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-semibold text-gray-900">
+              Recommended for you
+            </h2>
+            <p className="text-sm text-gray-500 mt-1">
+              Books picked based on your recent bookmarks and purchases.
+            </p>
+          </div>
+
+          <Link href="/books" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
+            Browse more ebooks →
+          </Link>
+        </div>
+
+        {recommendedBooks.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
+            {recommendedBooks.map((book) => (
+              <BookCard key={book._id} book={book} />
+            ))}
+          </div>
+        ) : (
+          <Card className="p-6 border border-gray-200 rounded-2xl text-center">
+            <p className="text-sm text-gray-500">
+              We couldn&apos;t find enough personalized recommendations yet. Explore more ebooks to improve your recommendations.
+            </p>
+          </Card>
+        )}
+      </div>
+
     </div>
   );
 };
