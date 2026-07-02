@@ -3,6 +3,7 @@ import { getTopWriters } from "@/lib/api/home";
 
 import HeroBanner from "@/components/Sections/HeroBanner";
 import RecommendedEbooks from "@/components/Sections/RecommendedEbooks";
+import TrendingNow from "@/components/Sections/TrendingNow";
 import FeaturedEbooks from "@/components/Sections/FeaturedEbook";
 import TopWriters from "@/components/Sections/TopWriterSection";
 import EbookGenres from "@/components/Sections/EbookGenresSection";
@@ -18,6 +19,7 @@ export default async function Home() {
     <>
       <HeroBanner />
       <RecommendedEbooks books={featuredBooks} />
+      <TrendingNow books={featuredBooks} />
       <FeaturedEbooks books={featuredBooks} />
       <TopWriters writers={topWriters} />
       <EbookGenres />
