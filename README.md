@@ -17,7 +17,7 @@
 
 ## 📋 Project Overview
 
-Fable is a comprehensive **ebook sharing and selling platform** designed to bridge readers and emerging writers. The platform features a robust **role-based access control (RBAC)** system with three distinct roles: **Reader**, **Writer**, and **Admin**.
+Fable is a comprehensive **ebook sharing and selling platform** designed to bridge readers and emerging writers. The platform features a robust **role-based access control (RBAC)** system with three distinct roles: **Reader**, **Writer**, and **Admin**..
 
 Built with modern web technologies, Fable provides a seamless experience for browsing, purchasing, publishing, and managing ebooks, along with secure payment integration and administrative oversight.
 
