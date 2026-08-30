@@ -65,7 +65,7 @@ Built with modern web technologies, Fable provides a seamless experience for bro
 - Node.js (v18 or higher)
 - MongoDB Database (Atlas recommended)
 - Stripe Account
-- imgBB API Key
+- imgBB API Key !
 
 ### Installation
 
